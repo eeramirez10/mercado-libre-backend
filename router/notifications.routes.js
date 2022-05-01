@@ -1,27 +1,37 @@
-const express = require('express');
-const { admin } = require('../firebase/config');
-const router = express.Router();
+const { getFirestore, collection, getDocs, addDoc } = require('firebase/firestore/lite'); 
+const router = require('express').Router();
+const { app } = require('../firebase/config');
 
+const db = getFirestore(app);
 
 
 
 router.post('/', async  (req,res) => {
 
-    const db = admin.database();
-    const notificaciones = db.ref('notificaciones/');
 
-    console.log(req.body)
+    try {
 
-    notificaciones.push(req.body)
+        const notificationsCol = collection(db,'notificaciones')
 
-//    const noti = await notificaciones.get();
+        const notificacionesRef = await addDoc(notificationsCol,req.body)
 
-//    console.log(noti.val())
 
-    res.json({
-        ok:true,
-        msg:'notifications'
-    })
+        res.json({
+            ok:true,
+            msg:`Insertado correctamente con el id ${notificacionesRef.id}` 
+        })
+        
+    } catch (error) {
+
+        res.status(400).json({
+            ok:false,
+            msg:error
+        })
+        
+    }
+
+
+
 
 })
 

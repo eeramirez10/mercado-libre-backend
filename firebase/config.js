@@ -1,14 +1,17 @@
 
-const admin = require('firebase-admin');
+const { initializeApp } = require('firebase/app');
 
-const serviceAccount = require('./lumi-417ec-firebase-adminsdk-ziish-d57f42c252.json');
+const firebaseConfig = {
+    apiKey: "AIzaSyC4M9yH9weFqtgKe9a0Y2WpMJPVx_Nb5RE",
+    authDomain: "mercado-libre-19dae.firebaseapp.com",
+    projectId: "mercado-libre-19dae",
+    storageBucket: "mercado-libre-19dae.appspot.com",
+    messagingSenderId: "439235894891",
+    appId: "1:439235894891:web:e3ead5b79acde620ab9b2e"
+  };
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL:"https://lumi-417ec-default-rtdb.firebaseio.com/"
 
-})
+const app = initializeApp(firebaseConfig)
 
 
-
-module.exports = { admin }
+module.exports = { app }
